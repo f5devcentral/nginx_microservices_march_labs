@@ -112,32 +112,6 @@ At this point, you should see the app.
 
 ![The podinfo welcome page](assets/podinfo.png)
 
-```bash
-$ minikube service --all
-😿  service default/kubernetes has no node port
-|-----------|------------|--------------|---------------------------|
-| NAMESPACE |    NAME    | TARGET PORT  |            URL            |
-|-----------|------------|--------------|---------------------------|
-| default   | kubernetes | No node port |
-| default   | podinfo    |           80 | http://192.168.49.2:32379 |
-|-----------|------------|--------------|---------------------------|
-
-curl http://192.168.49.2:32379
-{
-  "hostname": "podinfo-5d76864686-b9c6t",
-  "version": "6.0.3",
-  "revision": "",
-  "color": "#34577c",
-  "logo": "https://raw.githubusercontent.com/stefanprodan/podinfo/gh-pages/cuddle_clap.gif",
-  "message": "greetings from podinfo v6.0.3",
-  "goos": "linux",
-  "goarch": "amd64",
-  "runtime": "go1.16.9",
-  "num_goroutine": "6",
-  "num_cpu": "6"
-}
-```
-
 _There's an issue, though._
 
 You used a service of `type: LoadBalancer` that in turn:
