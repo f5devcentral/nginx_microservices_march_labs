@@ -256,6 +256,11 @@ $ curl -H "Host: example.com" http://127.0.0.1:55431
 
 _Excellent, it worked!_
 
+Exit the busybox container
+```bash
+# exit
+```
+
 Now that you have an Ingress controller that can route the traffic to your apps, it's time to think about scaling it.
 
 ## Inspecting metrics exposed by the NGINX Ingress Controller
