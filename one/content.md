@@ -256,11 +256,6 @@ $ curl -H "Host: example.com" http://127.0.0.1:55431
 
 _Excellent, it worked!_
 
-Exit the busybox container
-```bash
-# exit
-```
-
 Now that you have an Ingress controller that can route the traffic to your apps, it's time to think about scaling it.
 
 ## Inspecting metrics exposed by the NGINX Ingress Controller
@@ -282,7 +277,7 @@ $ kubectl run -ti --rm=true busybox --image=busybox
 ```
 
 Once ready, you should issue a request to the NGINX Ingress pod on port 9113:
-
+> You can retrieve the IP address of the pod with `kubectl get pods -o wide`.
 ```bash
 $ wget -qO- 172.17.0.4:9113/metrics
 nginx_ingress_controller_ingress_resources_total{class="nginx",type="master"} 0
@@ -291,7 +286,10 @@ nginx_ingress_controller_ingress_resources_total{class="nginx",type="regular"} 1
 # truncated output
 ```
 
-> You can retrieve the IP address of the pod with `kubectl get pods -o wide`.
+Exit the busybox container
+```bash
+# exit
+```
 
 You should see a relatively long list of metrics that Nginx keeps up to date.
 
