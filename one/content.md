@@ -75,6 +75,7 @@ spec:
   ports:
     - port: 80
       targetPort: 9898
+      nodePort: 30009
   selector:
     app: podinfo
   type: LoadBalancer
@@ -107,9 +108,10 @@ $ minikube service podinfo
 
 At this point, you should see the app.
 
+**Note:** If you are in the F5 Unified Demo Framework (UDF), use the Podinfo access method to view the app.
+
 ![The podinfo welcome page](assets/podinfo.png)
 
-**Note**: if you are using the F5 Unified Demo Framework (UDF) you will need run the following command to verify that podinfo is working.
 ```bash
 $ minikube service --all
 😿  service default/kubernetes has no node port
