@@ -606,30 +606,75 @@ metadata:
   name: locust-script
 data:
   locustfile.py: |-
-    ...
+    from locust import HttpUser, task, between
 
-    @task(1)
-    def visit_website(self):
-        with self.client.get("http://web-nginx-ingress.nginx-web", hea...
+    class QuickstartUser(HttpUser):
+        wait_time = between(0.7, 1.3)
+
+        @task(1)
+        def visit_website(self):
+            with self.client.get("http://web-nginx-ingress.nginx-web", headers={"Host": "example.com", "User-Agent": "Mozilla"}, timeout=0.2, catch_response=True) as response:
+                if response.request_meta["response_time"] > 200:
+                    response.failure("Frontend failed")
+                else:
+                    response.success()
 
 
-    @task(5)
-    def visit_api(self):
-        with self.client.get("http://api-nginx-ingress.nginx-api", hea...
-
-# truncated output
+        @task(5)
+        def visit_api(self):
+            with self.client.get("http://api-nginx-ingress.nginx-api", headers={"Host": "api.example.com"}, timeout=0.2) as response:
+                if response.request_meta["response_time"] > 200:
+                    response.failure("API failed")
+                else:
+                    response.success()
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: locust
+spec:
+  selector:
+    matchLabels:
+      app: locust
+  template:
+    metadata:
+      labels:
+        app: locust
+    spec:
+      containers:
+        - name: locust2
+          image: locustio/locust
+          ports:
+            - containerPort: 8089
+          volumeMounts:
+            - mountPath: /home/locust
+              name: locust-script
+      volumes:
+        - name: locust-script
+          configMap:
+            name: locust-script
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: locust
+spec:
+  ports:
+    - port: 8089
+      targetPort: 8089
+  selector:
+    app: locust
 ```
 
 You can apply the changes with:
 
 ```bash
+kubectl delete -f 3-locust.yaml
 kubectl apply -f 6-locust.yaml
 configmap/locust-script configured
 deployment.apps/locust unchanged
 service/locust unchanged
 ```
-
-You will also have to delete the Locust pod to force it re-read the ConfigMap.
 
 After that, you can open the Locust dashboard with:
 
