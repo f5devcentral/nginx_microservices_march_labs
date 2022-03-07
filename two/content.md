@@ -117,8 +117,8 @@ Let's install the [NGINX Ingress Controller](https://github.com/nginxinc/kuberne
 ```bash
 $ kubectl create namespace nginx
 namespace/nginx created
-$ helm repo add incubator https://helm.nginx.com/stable
-"incubator" has been added to your repositories
+$ helm repo add nginx-stable https://helm.nginx.com/stable
+"nginx-stable" has been added to your repositories
 $ helm install main nginx-stable/nginx-ingress \
   --set controller.ingressClass=nginx \
   --namespace nginx
