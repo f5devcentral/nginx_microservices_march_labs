@@ -217,7 +217,7 @@ $ wget --header="Host: example.local" --header="User-Agent: Mozilla" -qO- main-n
 ```
 
 The webpage rendered in the browser should look like this:
->Note: If you are in the F5 Unified Demo Framework (UDF), use the FireFox access method to view the app.
+>Note: If you are in the F5 Unified Demo Framework (UDF), use the FireFox access method to view the app at http://example.local
 
 
 ![The podinfo welcome page](assets/podinfo.png)
