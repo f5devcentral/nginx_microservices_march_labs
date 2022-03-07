@@ -139,7 +139,7 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-    - host: "example.com"
+    - host: "example.local"
       http:
         paths:
           - backend:
@@ -149,7 +149,7 @@ spec:
                   number: 80
             path: /
             pathType: Prefix
-    - host: "api.example.com"
+    - host: "api.example.local"
       http:
         paths:
           - backend:
@@ -187,7 +187,7 @@ $ kubectl run -ti --rm=true busybox --image=busybox
 Once ready, you should issue a request to the NGINX Ingress pod with the correct hostname:
 
 ```bash
-$ wget --header="Host: api.example.com" -qO- main-nginx-ingress.nginx
+$ wget --header="Host: api.example.local" -qO- main-nginx-ingress.nginx
 {
   "hostname": "api-687fd448f8-t7hqk",
   "version": "6.0.3",
@@ -208,7 +208,7 @@ _What about the web app?_
 You can still use the busybox to simulate a web browser and retrieve the webpage with:
 
 ```bash
-$ wget --header="Host: example.com" --header="User-Agent: Mozilla" -qO- main-nginx-ingress.nginx
+$ wget --header="Host: example.local" --header="User-Agent: Mozilla" -qO- main-nginx-ingress.nginx
 <!DOCTYPE html>
 <html>
 <head>
@@ -246,7 +246,7 @@ data:
 
         @task(1)
         def visit_website(self):
-            with self.client.get("/", headers={"Host": "example.com", "User-Agent": "Mozilla"}, timeout=0.2, catch_response=True) as response:
+            with self.client.get("/", headers={"Host": "example.local", "User-Agent": "Mozilla"}, timeout=0.2, catch_response=True) as response:
                 if response.request_meta["response_time"] > 200:
                     response.failure("Frontend failed")
                 else:
@@ -255,7 +255,7 @@ data:
 
         @task(5)
         def visit_api(self):
-            with self.client.get("/", headers={"Host": "api.example.com"}, timeout=0.2) as response:
+            with self.client.get("/", headers={"Host": "api.example.local"}, timeout=0.2) as response:
                 if response.request_meta["response_time"] > 200:
                     response.failure("API failed")
                 else:
@@ -318,7 +318,7 @@ class QuickstartUser(HttpUser):
 
     @task(1)
     def visit_website(self):
-        with self.client.get("/", headers={"Host": "example.com", "User-Agent": "Mozilla"}, timeout=0.2, catch_response=True) as response:
+        with self.client.get("/", headers={"Host": "example.local", "User-Agent": "Mozilla"}, timeout=0.2, catch_response=True) as response:
             if response.request_meta["response_time"] > 200:
                 response.failure("Frontend failed")
             else:
@@ -327,7 +327,7 @@ class QuickstartUser(HttpUser):
 
     @task(5)
     def visit_api(self):
-        with self.client.get("/", headers={"Host": "api.example.com"}, timeout=0.2) as response:
+        with self.client.get("/", headers={"Host": "api.example.local"}, timeout=0.2) as response:
             if response.request_meta["response_time"] > 200:
                 response.failure("API failed")
             else:
@@ -435,7 +435,7 @@ metadata:
 spec:
   ingressClassName: nginx-web
   rules:
-    - host: "example.com"
+    - host: "example.local"
       http:
         paths:
           - backend:
@@ -542,7 +542,7 @@ metadata:
 spec:
   ingressClassName: nginx-api
   rules:
-    - host: "api.example.com"
+    - host: "api.example.local"
       http:
         paths:
           - backend:
