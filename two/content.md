@@ -406,7 +406,7 @@ _But what if you could have more than one?_
 Before moving on, let's delete the previous ingress definition with:
 
 ```bash
-$ kubectl delete ingress -f 2-ingress.yaml
+$ kubectl delete -f 2-ingress.yaml
 ingress.networking.k8s.io "first" deleted
 ```
 
