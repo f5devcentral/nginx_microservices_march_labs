@@ -594,9 +594,10 @@ It's time to repeat the experiment and check that:
 1. No matter how many requests we send to the API, the front-end app is not affected.
 1. Any client connecting to the API can issue at most 120 requests per second (where 100 is the baseline, but we allow an excess of 20 extra requests).
 
-The Locust script has to change, though: all the requests to the web app should go through the `nginx-web` (at `http://web-nginx-ingress.nginx-web`), and all the API requests should go to the `nginx-api` (at `http://web-nginx-ingress.nginx-web`).
+The Locust script has to change, though: all the requests to the web app should go through the `nginx-web` (at `http://web-nginx-ingress.nginx-web`), and all the API requests should go to the `nginx-api` (at `http://api-nginx-ingress.nginx-web`).
 
 Since Locust supports a single URL in the dashboard, you will have to hardcode the value in the script like this:
+> Note: this is an example, do not copy as it is incomplete
 
 ```yaml
 apiVersion: v1
