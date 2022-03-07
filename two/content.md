@@ -293,10 +293,28 @@ metadata:
   name: locust
 spec:
   ports:
-    - port: 8089
+    - port: 80
       targetPort: 8089
   selector:
     app: locust
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: locust
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: "locust.example.local"
+      http:
+        paths:
+          - backend:
+              service:
+                name: locust
+                port:
+                  number: 80
+            path: /
+            pathType: Prefix
 ```
 
 You can submit the resource to the cluster with:
