@@ -238,16 +238,9 @@ Let's find out.
 sudo mkdir /var/www/html/lab2
 sudo curl https://raw.githubusercontent.com/f5devcentral/nginx_microservices_march_labs/exposing_apis/two/dashboard/app.js -o /var/www/html/lab2/app.js
 sudo curl https://raw.githubusercontent.com/f5devcentral/nginx_microservices_march_labs/exposing_apis/two/dashboard/index.html -o /var/www/html/lab2/index.html
-sudo tee -a /etc/nginx/sites-available/example.local << EOL
-server {
-    listen 80;
-    server_name lab2.example.local;
-    location / {
-        proxy_pass http://192.168.49.2:31987;
-        proxy_set_header Host \$host;
-    }
-}
-EOL
+```
+
+Open the Dashboard via the Firefox access method at http://10.1.1.4/lab2/
 
 ## Generating traffic to the API
 

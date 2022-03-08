@@ -8,7 +8,7 @@ async function fetchWithTimeout(resource, options = {}) {
     signal: controller.signal,
     mode: "no-cors",
     headers: {
-      Host: "example.com",
+      Host: "example.local",
       "User-Agent": "Mozilla",
     },
   });
