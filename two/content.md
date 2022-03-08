@@ -380,7 +380,7 @@ $ minikube service locust
 |-----------|--------|-------------|------------------------|
 🎉  Opening service default/locust in default browser...
 ```
-Note: If you are in the F5 Unified Demo Framework (UDF), use the FireFox access method to access the Locust dashboard.
+Note: If you are in the F5 Unified Demo Framework (UDF), use the FireFox access method to access the Locust dashboard at http://locust.example.local .
 
 
 ![Welcome page for the Locust load testing tool](assets/locust-welcome.png)
