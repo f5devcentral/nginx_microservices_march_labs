@@ -121,6 +121,8 @@ $ helm repo add nginx-stable https://helm.nginx.com/stable
 "nginx-stable" has been added to your repositories
 $ helm install main nginx-stable/nginx-ingress \
   --set controller.ingressClass=nginx \
+  --set controller.service.type=NodePort \
+  --set controller.service.httpPort.nodePort=31987 \
   --namespace nginx
 NAME: main
 NAMESPACE: nginx
@@ -229,6 +231,23 @@ The NGINX Ingress controller receives the request and dispatches it to the right
 _What happens when your API is overwhelmed with requests? Does the NGINX pod reserve some bandwidth to the web app?_
 
 Let's find out.
+
+## Install Lab2 Dashboard
+
+```bash
+sudo mkdir /var/www/html/lab2
+sudo curl https://raw.githubusercontent.com/f5devcentral/nginx_microservices_march_labs/exposing_apis/two/dashboard/app.js -o /var/www/html/lab2/app.js
+sudo curl https://raw.githubusercontent.com/f5devcentral/nginx_microservices_march_labs/exposing_apis/two/dashboard/index.html -o /var/www/html/lab2/index.html
+sudo tee -a /etc/nginx/sites-available/example.local << EOL
+server {
+    listen 80;
+    server_name lab2.example.local;
+    location / {
+        proxy_pass http://192.168.49.2:31987;
+        proxy_set_header Host \$host;
+    }
+}
+EOL
 
 ## Generating traffic to the API
 
@@ -437,7 +456,11 @@ namespace/nginx-web created
 You can install the NGINX controller that serves the web traffic with:
 
 ```bash
-$ helm install web nginx-stable/nginx-ingress --set controller.ingressClass=nginx-web --namespace nginx-web
+$ helm install web nginx-stable/nginx-ingress \
+    --set controller.ingressClass=nginx-web \
+    --set controller.service.type=NodePort \
+    --set controller.service.httpPort.nodePort=31987 \
+    --namespace nginx-web
 NAME: web
 NAMESPACE: nginx-web
 STATUS: deployed
@@ -532,9 +555,11 @@ Since the `limit_req_zone` is typically defined in the HTTP block, you will have
 
 ```bash
 $ helm install api nginx-stable/nginx-ingress \
-  --set controller.ingressClass=nginx-api \
-  --set controller.enableSnippets=true \
-  --set "controller.config.entries.http-snippets"="limit_req_zone \$binary_remote_addr zone=ingress-api:5m rate=100r/s;" \
+    --set controller.ingressClass=nginx-api \
+    --set controller.service.type=NodePort \
+    --set controller.service.httpPort.nodePort=31987 \
+    --set controller.enableSnippets=true \
+    --set "controller.config.entries.http-snippets"="limit_req_zone \$binary_remote_addr zone=ingress-api:5m rate=100r/s;" \
   --namespace nginx-api
 NAME: api
 NAMESPACE: nginx-api
