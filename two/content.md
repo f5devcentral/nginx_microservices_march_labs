@@ -451,8 +451,6 @@ You can install the NGINX controller that serves the web traffic with:
 ```bash
 $ helm install web nginx-stable/nginx-ingress \
     --set controller.ingressClass=nginx-web \
-    --set controller.service.type=NodePort \
-    --set controller.service.httpPort.nodePort=31987 \
     --namespace nginx-web
 NAME: web
 NAMESPACE: nginx-web
