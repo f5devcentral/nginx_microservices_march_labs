@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>K8bit</title>
+  <link rel="stylesheet" href="https://unpkg.com/tachyons@4.10.0/css/tachyons.min.css" />
+</head>
+
+<body class="h-min-100 bg-near-black sans-serif">
+  <div id="start" class="vh-100 w-100">
+    <div class="flex flex-column items-center justify-center h-100">
+      <input type="text" placeholder="URL" class="input-reset pa2 f2 ba b--light-gray br2">
+      <div class="pv3"></div>
+      <button class="pa3 ma0 ttu b bg-green white bn br2 f2 pointer">Start</button>
+    </div>
+  </div>
+  <div id="connected" class="vh-100 w-100 bg-dark-green dn">
+    <div class="flex items-center justify-center h-100">
+      <h1 class="f-headline white-80">Connected</h1>
+    </div>
+  </div>
+  <div id="timeout" class="vh-100 w-100 bg-dark-red dn">
+    <div class="flex items-center justify-center h-100">
+      <h1 class="f-headline white-80">Timeout error</h1>
+    </div>
+  </div>
+  <script src='app.js'></script>
+</body>
+
+</html>
