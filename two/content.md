@@ -236,8 +236,8 @@ Let's find out.
 
 ```bash
 sudo mkdir /var/www/html/lab2
-sudo curl https://raw.githubusercontent.com/f5devcentral/nginx_microservices_march_labs/exposing_apis/two/dashboard/app.js -o /var/www/html/lab2/app.js
-sudo curl https://raw.githubusercontent.com/f5devcentral/nginx_microservices_march_labs/exposing_apis/two/dashboard/index.html -o /var/www/html/lab2/index.html
+sudo curl https://raw.githubusercontent.com/f5devcentral/nginx_microservices_march_labs/main/two/dashboard/app.js -o /var/www/html/lab2/app.js
+sudo curl https://raw.githubusercontent.com/f5devcentral/nginx_microservices_march_labs/main/two/dashboard/index.html -o /var/www/html/lab2/index.html
 ```
 
 Open the Dashboard via the Firefox access method at http://10.1.1.4/lab2/
